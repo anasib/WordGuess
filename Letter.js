@@ -1,18 +1,19 @@
-function Letter(character) {
-	this.character = character;
-	this.show = false;
-	if (this.character === '') 
-        this.show = true;
-        
+class Letter {
+    constructor(character) {
+        this.character = character;
+        this.show = false;
+        if (this.character === '')
+            this.show = true;
         console.log(character);
+    }
+    printInfo() {
+        if (this.show) {
+            return this.character;
+        }
+        return ' _ ';
+    }
 }
 
-Letter.prototype.printInfo = function() {
-	if (this.show) {
-		return this.character;
-	}
-	return ' _ ';
-}
 
 // var letter = new Letter(this.character);
 // letter.printInfo();
