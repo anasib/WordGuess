@@ -4,7 +4,7 @@ var letterCons = require('./Letter.js');
 var inquirer = require('inquirer');
 var letterGuessed = 0;
 
-var maxGuesses = 15;
+var maxGuesses = 3;
 
 // var newLetter = new letterCons('A');
 var findWord = new wordCons('');
@@ -13,11 +13,7 @@ var findWord = new wordCons('');
 
 function takeAGuess() {
     // console.log(randomCharacter);
-    if (letterGuessed >= maxGuesses) {
-        console.log('Game over. You have no more guesses left.');
-        console.log("The random character was: " + randomCharacter);
-        return;
-    }
+
     inquirer.prompt([{
         name: 'letter',
         type: 'text',
@@ -27,6 +23,16 @@ function takeAGuess() {
             return regEx.test(str);
         }
     }]).then(function (letterInput) { //Game control
+        if (letterGuessed >= maxGuesses) {
+            console.log('Game over. You have no more guesses left.');
+            console.log("The random character was: " + randomCharacter);
+
+            findWord = new wordCons('');
+            maxGuesses = 3;
+            letterGuessed = 0;
+            takeAGuess();
+        }
+
         var letter = letterInput.letter;
         findWord.findLetter(letter); //Check
         letterGuessed++;
