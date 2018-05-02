@@ -1,20 +1,21 @@
-var game = require('./game.js');
+var randomCharacter = require('./game.js');
 var wordCons = require('./Word.js');
 var letterCons = require('./Letter.js');
 var inquirer = require('inquirer');
 var letterGuessed = 0;
 
-var maxGuesses = 6;
+var maxGuesses = 15;
 
-var newLetter = new letterCons('A');
+// var newLetter = new letterCons('A');
 var findWord = new wordCons('');
 // console.log(newLetter);
-// console.log(game);
+// console.log(randomCharacter);
 
 function takeAGuess() {
-    console.log(game);
+    // console.log(randomCharacter);
     if (letterGuessed >= maxGuesses) {
         console.log('Game over. You have no more guesses left.');
+        console.log("The random character was: " + randomCharacter);
         return;
     }
     inquirer.prompt([{
@@ -27,10 +28,10 @@ function takeAGuess() {
         }
     }]).then(function (letterInput) { //Game control
         var letter = letterInput.letter;
-        findLetter(letter); //Check
+        findWord.findLetter(letter); //Check
         letterGuessed++;
-        if (game.isComplete()) {
-            console.log('Yes! It was ' + game + '!');
+        if (findWord.isComplete()) {
+            console.log('Yes! It was ' + randomCharacter + '!');
             return; //Winner
         }
         console.log('\nYou have ' + (maxGuesses - letterGuessed) + ' guesses left.')
